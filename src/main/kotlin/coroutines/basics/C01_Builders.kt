@@ -78,3 +78,19 @@ class RunBlocking3 {
         }
     }
 }
+
+class AsyncWithAwait {
+    companion object {
+        @JvmStatic
+        fun main(args: Array<String>) = runBlocking {
+            val async = GlobalScope.async {
+                repeat(8) {
+                    println("Executing $it in ${Thread.currentThread()}")
+                    delay(1000L)
+                }
+            }
+            println("I am in ${Thread.currentThread()}")
+            async.await()
+        }
+    }
+}
