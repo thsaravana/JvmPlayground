@@ -42,16 +42,41 @@ class CooperativeCancel {
     }
 }
 
-class CancelAndJoin {
+class CancelFinally {
     companion object {
         @JvmStatic
         fun main(args: Array<String>) = runBlocking {
             val job = GlobalScope.launch {
-                repeat(100) {
-                    println("Executing $it in ${Thread.currentThread()}")
-                    delay(1000L)
+                try {
+                    repeat(100) {
+                        println("Executing $it in ${Thread.currentThread()}")
+                        delay(1000L)
+                    }
+                } finally {
+                    println("Invoking Finally on Cancellation in ${Thread.currentThread()}")
                 }
             }
+            // No time to call finally
+            job.cancel()
+        }
+    }
+}
+
+class CancelAndJoinFinally {
+    companion object {
+        @JvmStatic
+        fun main(args: Array<String>) = runBlocking {
+            val job = GlobalScope.launch {
+                try {
+                    repeat(100) {
+                        println("Executing $it in ${Thread.currentThread()}")
+                        delay(1000L)
+                    }
+                } finally {
+                    println("Invoking Finally on Cancellation in ${Thread.currentThread()}")
+                }
+            }
+            // Cancel and waits for the job to finish. Hence Finally will be called.
             job.cancelAndJoin()
         }
     }
