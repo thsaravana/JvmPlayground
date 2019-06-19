@@ -2,7 +2,7 @@ package coroutines.basics
 
 import kotlinx.coroutines.*
 
-class Launch {
+class LaunchBuilder {
     companion object {
         @JvmStatic
         fun main(args: Array<String>) {
@@ -18,7 +18,7 @@ class Launch {
     }
 }
 
-class AsyncWithoutAwait {
+class AsyncWithoutAwaitBuilder {
     companion object {
         @JvmStatic
         fun main(args: Array<String>) {
@@ -34,7 +34,7 @@ class AsyncWithoutAwait {
     }
 }
 
-class RunBlocking1 {
+class RunBlockingBuilder1 {
     companion object {
         @JvmStatic
         fun main(args: Array<String>) {
@@ -50,7 +50,7 @@ class RunBlocking1 {
     }
 }
 
-class RunBlocking2 {
+class RunBlockingBuilder2 {
     companion object {
         @JvmStatic
         fun main(args: Array<String>) = runBlocking {
@@ -63,7 +63,7 @@ class RunBlocking2 {
     }
 }
 
-class RunBlocking3 {
+class RunBlockingBuilder3 {
     companion object {
         @JvmStatic
         fun main(args: Array<String>) = runBlocking {
@@ -79,7 +79,7 @@ class RunBlocking3 {
     }
 }
 
-class AsyncWithAwait {
+class AsyncWithAwaitBuilder {
     companion object {
         @JvmStatic
         fun main(args: Array<String>) = runBlocking {
