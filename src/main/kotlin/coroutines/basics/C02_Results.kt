@@ -35,3 +35,16 @@ class AsyncResult {
         }
     }
 }
+
+class RunBlockingResult {
+    companion object {
+        @JvmStatic
+        fun main(args: Array<String>) {
+            val result = runBlocking {
+                delay(1000L)
+                5
+            }
+            println("Result is $result")
+        }
+    }
+}
