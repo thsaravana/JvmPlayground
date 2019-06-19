@@ -1,9 +1,6 @@
 package coroutines.basics
 
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 class Launch {
     companion object {
@@ -33,6 +30,51 @@ class AsyncWithoutAwait {
             }
             println("I am in ${Thread.currentThread()}")
             Thread.sleep(5000L)
+        }
+    }
+}
+
+class RunBlocking1 {
+    companion object {
+        @JvmStatic
+        fun main(args: Array<String>) {
+            runBlocking {
+                repeat(5) {
+                    println("Executing $it in ${Thread.currentThread()}")
+                    delay(1000L)
+                }
+            }
+            println("I am in ${Thread.currentThread()}")
+            Thread.sleep(5000L)
+        }
+    }
+}
+
+class RunBlocking2 {
+    companion object {
+        @JvmStatic
+        fun main(args: Array<String>) = runBlocking {
+            repeat(5) {
+                println("Executing $it in ${Thread.currentThread()}")
+                delay(1000L)
+            }
+            println("I am in ${Thread.currentThread()}")
+        }
+    }
+}
+
+class RunBlocking3 {
+    companion object {
+        @JvmStatic
+        fun main(args: Array<String>) = runBlocking {
+            GlobalScope.launch {
+                repeat(100) {
+                    println("Executing $it in ${Thread.currentThread()}")
+                    delay(1000L)
+                }
+            }
+            println("I am in ${Thread.currentThread()}")
+            delay(5000L)
         }
     }
 }
