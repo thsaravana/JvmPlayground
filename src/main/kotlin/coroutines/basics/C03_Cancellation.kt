@@ -1,6 +1,7 @@
 package coroutines.basics
 
 import kotlinx.coroutines.*
+import kotlinx.coroutines.NonCancellable
 
 class NoCancel {
     companion object {
@@ -77,6 +78,31 @@ class CancelAndJoinFinally {
                 }
             }
             // Cancel and waits for the job to finish. Hence Finally will be called.
+            job.cancelAndJoin()
+        }
+    }
+}
+
+class NonCancellable {
+    companion object {
+        @JvmStatic
+        fun main(args: Array<String>) = runBlocking {
+            val job = GlobalScope.launch {
+                try {
+                    repeat(100) {
+                        println("Executing $it in ${Thread.currentThread()}")
+                        delay(1000L)
+                    }
+                } finally {
+                    withContext(NonCancellable) {
+                        repeat(2) {
+                            println("NonCancellable $it in ${Thread.currentThread()}")
+                            delay(1000L)
+                        }
+                    }
+                    println("Invoking Finally on Cancellation in ${Thread.currentThread()}")
+                }
+            }
             job.cancelAndJoin()
         }
     }
